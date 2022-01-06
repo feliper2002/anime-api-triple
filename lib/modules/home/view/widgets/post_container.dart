@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:intl/intl.dart';
 import 'package:tripleintoxianimeapi/modules/home/models/anime_model.dart';
 
@@ -10,7 +11,7 @@ class PostContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/content', arguments: {
+        Modular.to.pushNamed('/content', arguments: {
           'title': post!.title!,
           'content': post!.content!,
         });

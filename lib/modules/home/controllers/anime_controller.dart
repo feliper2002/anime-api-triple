@@ -13,12 +13,13 @@ class AnimeController extends MobXStore<ErrorPostState, PostState> {
 
   Future<void> getInitialPosts() async {
     setLoading(true);
-
     try {
       posts = await repository.getAnimePost();
       update(SuccessPostState(posts));
     } catch (e) {
       setError(ErrorPostState(e.toString()));
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -27,9 +28,10 @@ class AnimeController extends MobXStore<ErrorPostState, PostState> {
 
   Future<void> getPosts() async {
     setLoading(true);
-    late List<AnimePost> newPosts;
 
+    late List<AnimePost> newPosts;
     if (_page < 200) _incrementPage();
+
     try {
       newPosts = await repository.getAnimePost(_page);
       posts.addAll(newPosts);

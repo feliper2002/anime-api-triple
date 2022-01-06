@@ -25,10 +25,6 @@ class AnimeRepositoryFTeam implements AnimeRepository {
         posts.add(animePost);
       }
     }
-    try {
-      return posts;
-    } catch (e) {
-      throw NotFoundFailure("Não foi possível retornar a lista de posts.");
-    }
+    return posts;
   }
 }
