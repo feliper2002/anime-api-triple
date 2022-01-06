@@ -30,8 +30,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    controller.addListener(_onScroll);
     Modular.get<AnimeController>().getInitialPosts();
+    controller.addListener(_onScroll);
     Modular.get<AnimeController>().observer(
       onState: (state) => print(state),
       onError: (error) => print(error),
@@ -62,6 +62,7 @@ class _HomePageState extends State<HomePage> {
           onState: (context, state) {
             if (state is SuccessPostState) {
               return ListView.builder(
+                controller: controller,
                 itemCount: state.posts.length,
                 physics: const BouncingScrollPhysics(),
                 itemBuilder: (_, index) {

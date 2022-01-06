@@ -3,6 +3,7 @@ import 'package:tripleintoxianimeapi/modules/home/models/anime_model.dart';
 import 'package:tripleintoxianimeapi/modules/home/post_state.dart';
 import 'package:tripleintoxianimeapi/modules/home/repository/anime_repository.dart';
 
+// ignore: must_be_immutable
 class AnimeController extends MobXStore<ErrorPostState, PostState> {
   AnimeController(this.repository) : super(InitialPostState());
 
@@ -35,6 +36,8 @@ class AnimeController extends MobXStore<ErrorPostState, PostState> {
       update(SuccessPostState(posts));
     } catch (e) {
       setError(ErrorPostState(e.toString()));
+    } finally {
+      setLoading(false);
     }
   }
 }
