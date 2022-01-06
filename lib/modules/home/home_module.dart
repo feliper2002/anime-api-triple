@@ -18,6 +18,8 @@ class HomeModule extends Module {
   @override
   List<ModularRoute> get routes => [
         ChildRoute('/', child: (_, args) => const HomePage()),
-        ChildRoute('/content', child: (_, args) => const ContentPage()),
+        ChildRoute('/content',
+            child: (_, args) => ContentPage(
+                title: args.data['title'], content: args.data['content'])),
       ];
 }

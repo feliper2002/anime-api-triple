@@ -4,19 +4,23 @@ import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart
 class ContentPage extends StatelessWidget {
   const ContentPage({
     Key? key,
+    this.title,
+    this.content,
   }) : super(key: key);
+
+  final String? title;
+  final String? content;
 
   @override
   Widget build(BuildContext context) {
-    final args = ModalRoute.of(context)!.settings.arguments as Map;
     return Scaffold(
-      appBar: AppBar(title: Text(args['title']), backgroundColor: Colors.black),
+      appBar: AppBar(title: Text(title!), backgroundColor: Colors.black),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              HtmlWidget(args['content']),
+              HtmlWidget(content!),
             ],
           ),
         ),
