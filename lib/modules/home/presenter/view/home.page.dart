@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_triple/flutter_triple.dart';
-import 'package:tripleintoxianimeapi/modules/home/controllers/anime_controller.dart';
 import 'package:tripleintoxianimeapi/modules/home/post_state.dart';
+import 'package:tripleintoxianimeapi/modules/home/presenter/controllers/anime_controller.dart';
 
 import 'widgets/post_container.dart';
 

@@ -1,18 +1,23 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:tripleintoxianimeapi/modules/home/controllers/anime_controller.dart';
 import 'package:tripleintoxianimeapi/modules/home/repository/anime_repository.dart';
-import 'package:tripleintoxianimeapi/modules/home/view/content.page.dart';
+import 'package:tripleintoxianimeapi/modules/home/usecases/get_initial_posts.dart';
+import 'package:tripleintoxianimeapi/modules/home/usecases/get_posts.dart';
 
-import 'view/home.page.dart';
+import 'presenter/controllers/anime_controller.dart';
+import 'presenter/view/content.page.dart';
+import 'presenter/view/home.page.dart';
 
 class HomeModule extends Module {
   @override
   List<Bind> get binds => [
         Bind<Dio>((i) => Dio()),
         Bind<AnimeRepositoryFTeam>((i) => AnimeRepositoryFTeam(i.get<Dio>())),
-        Bind<AnimeController>(
-            (i) => AnimeController(i.get<AnimeRepositoryFTeam>())),
+        Bind((i) => AnimeRepositoryFTeam(i.get())),
+        Bind((i) => GetInitialPostsImpl(i.get())),
+        Bind((i) => GetPostsImpl(i.get())),
+        Bind<AnimeController>((i) => AnimeController(
+            i.get<GetInitialPostsImpl>(), i.get<GetPostsImpl>())),
       ];
 
   @override
