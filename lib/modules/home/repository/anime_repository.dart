@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:tripleintoxianimeapi/modules/home/models/anime_model.dart';
-import 'package:tripleintoxianimeapi/utils/failure.dart';
 
 abstract class AnimeRepository {
-  Future<List<AnimePost>> getAnimePost([int page, int perPage]);
+  Future<List<AnimePost>> getAnimePost({int page = 1, int perPage = 10});
 }
 
 class AnimeRepositoryFTeam implements AnimeRepository {
@@ -12,7 +11,7 @@ class AnimeRepositoryFTeam implements AnimeRepository {
   AnimeRepositoryFTeam(this.client);
 
   @override
-  Future<List<AnimePost>> getAnimePost([int page = 1, int perPage = 10]) async {
+  Future<List<AnimePost>> getAnimePost({int page = 1, int perPage = 10}) async {
     const path = 'https://www.intoxianime.com/?rest_route=/wp/v2';
 
     List<AnimePost> posts = <AnimePost>[];

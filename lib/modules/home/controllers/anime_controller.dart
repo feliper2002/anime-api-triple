@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:mobx_triple/mobx_triple.dart';
 import 'package:tripleintoxianimeapi/modules/home/models/anime_model.dart';
 import 'package:tripleintoxianimeapi/modules/home/post_state.dart';
@@ -9,7 +10,7 @@ class AnimeController extends MobXStore<ErrorPostState, PostState> {
 
   final AnimeRepository repository;
 
-  late List<AnimePost> posts;
+  List<AnimePost> posts = [];
 
   Future<void> getInitialPosts() async {
     setLoading(true);
@@ -27,19 +28,12 @@ class AnimeController extends MobXStore<ErrorPostState, PostState> {
   _incrementPage() => _page++;
 
   Future<void> getPosts() async {
-    setLoading(true);
-
-    late List<AnimePost> newPosts;
     if (_page < 200) _incrementPage();
-
     try {
-      newPosts = await repository.getAnimePost(_page);
-      posts.addAll(newPosts);
+      posts.addAll(await repository.getAnimePost(page: _page));
       update(SuccessPostState(posts));
-    } catch (e) {
-      setError(ErrorPostState(e.toString()));
-    } finally {
-      setLoading(false);
+    } on DioError catch (e) {
+      setError(ErrorPostState(e.message));
     }
   }
 }

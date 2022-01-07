@@ -21,7 +21,7 @@ void main() {
     },
     act: (controller) => controller.getInitialPosts(),
     expect: () => [
-      isA<InitialPostState>(),
+      tripleState,
       tripleLoading,
       isA<SuccessPostState>(),
       false,
@@ -31,16 +31,14 @@ void main() {
   storeTest<AnimeController>(
     'Should return a SuccessPostState with AnimePost list increment page',
     build: () {
-      when(() => repository.getAnimePost())
+      when(() => repository.getAnimePost(page: 2))
           .thenAnswer((_) async => <AnimePost>[]);
       return AnimeController(repository);
     },
     act: (controller) => controller.getPosts(),
     expect: () => [
       isA<InitialPostState>(),
-      true,
       isA<SuccessPostState>(),
-      false,
     ],
   );
 }
