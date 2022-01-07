@@ -60,7 +60,7 @@ class _HomePageState extends State<HomePage> {
         child: ScopedBuilder(
           store: Modular.get<AnimeController>(),
           onLoading: (_) => _loader(),
-          onError: (_, e) => const Text('Erro'),
+          onError: (_, ErrorPostState? e) => Text(e!.message),
           onState: (context, state) {
             if (state is SuccessPostState) {
               return ListView.builder(
@@ -74,8 +74,6 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               );
-            } else if (state is ErrorPostState) {
-              return Text(state.message);
             }
             return _loader();
           },

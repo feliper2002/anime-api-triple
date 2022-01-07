@@ -18,7 +18,7 @@ class AnimeController extends MobXStore<ErrorPostState, PostState> {
       posts = await repository.getAnimePost();
       update(SuccessPostState(posts));
     } catch (e) {
-      setError(ErrorPostState(e.toString()));
+      setError(ErrorPostState("Não foi possível carregar os posts iniciais."));
     } finally {
       setLoading(false);
     }
